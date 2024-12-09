@@ -1,9 +1,78 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.container {
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
 }
 
 h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #333;
+}
+
+.todo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.todo-table th,
+.todo-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.todo-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.description {
+    font-style: italic;
+    font-weight: bold;
+    color: #555;
+    text-decoration: underline;
+}
+
+.add-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-btn:hover {
+    background-color: #0056b3;
 }

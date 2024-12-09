@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Web Server</title>
+    <title>Todos</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<h1>Welcome to the Simple Web Server</h1>
-<p>This is a static HTML page served by a simple Java HTTP server!</p>
+<div class="container">
+    <h1>Todos</h1>
+    <table class="todo-table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Done</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><button class="delete-btn">❌</button></td>
+            <td>0</td>
+            <td><span class="description">item1</span></td>
+            <td><input type="checkbox" checked></td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="add-btn">Add new todo</button>
+</div>
 <script src="app.js"></script>
 </body>
 </html>
