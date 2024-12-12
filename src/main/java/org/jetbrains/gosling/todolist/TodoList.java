@@ -12,10 +12,11 @@ public class TodoList {
         this.nextId = 1;
     }
 
-    public void addItem(String description) {
+    public int addItem(String description) {
         TodoItem todoItem = new TodoItem(nextId, description, false);
         items.add(todoItem);
         nextId++;
+        return nextId-1;
     }
 
     public void removeItem(int id) {
@@ -60,7 +61,7 @@ public class TodoList {
             System.out.println("No tasks available");
         } else {
             for (TodoItem item : items) {
-                String status = item.isCompleted() ? "Completed" : "Not Completed";
+                String status = item.isDone() ? "Completed" : "Not Completed";
                 System.out.println("ID: " + item.getId() + " - " + item.getDescription() + " (" + status + ") ");
             }
         }

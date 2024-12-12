@@ -1,11 +1,14 @@
 package org.jetbrains.gosling.todolist;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.net.httpserver.*;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 class TodoHandler implements HttpHandler {
@@ -26,11 +29,9 @@ class TodoHandler implements HttpHandler {
         if (reqPath.equals("/")) {
             reqPath = "/index.html";
             handleHome(exchange, reqPath);
-        } else if (reqPath.equals("/api/todos")){
-            todoList.addItem("test");
+        } else if (reqPath.equals("/api/todos")) {
             handleTodosApi(exchange, method);
-        }
-        else {
+        } else {
             handleHome(exchange, reqPath);
         }
     }
@@ -63,9 +64,31 @@ class TodoHandler implements HttpHandler {
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(todosJson.getBytes());
             }
-        } else {
-            sendMethodNotAllowed(exchange);
+            return;
         }
+        if (method.equals("POST")) {
+            // read data from client
+            InputStream requestBody = exchange.getRequestBody();
+            Reader jsonReader = new InputStreamReader(requestBody);
+            JsonObject jsonObject = JsonParser.parseReader(jsonReader).getAsJsonObject();
+
+            // extract description and create todo
+            String description = jsonObject.get("description").getAsString();
+            int id = todoList.addItem(description);
+
+            // structure the response to client
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("id", id);
+            String jsonResponse = gson.toJson(responseJson);
+
+            // send response
+            exchange.sendResponseHeaders(201, jsonResponse.length());
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(jsonResponse.getBytes());
+            }
+            return;
+        }
+        sendMethodNotAllowed(exchange);
     }
 
     private void sendNotFound(HttpExchange exchange) throws IOException {

@@ -2,25 +2,25 @@ package org.jetbrains.gosling.todolist;
 
 public class TodoItem {
     private int id;
-    private boolean isCompleted;
+    private boolean isDone;
     private String description;
 
     public TodoItem(int id, String description, boolean isCompleted) {
         this.id = id;
         this.description = description;
-        this.isCompleted = isCompleted;
+        this.isDone = isCompleted;
     }
 
     public void toggleComplete(){
-        this.isCompleted = !this.isCompleted;
+        this.isDone = !this.isDone;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     public String getDescription() {

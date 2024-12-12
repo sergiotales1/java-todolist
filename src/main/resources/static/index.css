@@ -76,3 +76,80 @@ h1 {
 .add-btn:hover {
     background-color: #0056b3;
 }
+
+
+.create-container {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.back-btn {
+    background-color: #6c757d;
+    margin-top: 10px;
+}
+
+button.back-btn:hover {
+    background-color: #495057;
+}
+
+button a {
+    text-decoration: none;
+    color: #fff;
+}
