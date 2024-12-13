@@ -8,7 +8,6 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 class TodoHandler implements HttpHandler {
@@ -31,6 +30,10 @@ class TodoHandler implements HttpHandler {
             handleHome(exchange, reqPath);
         } else if (reqPath.equals("/api/todos")) {
             handleTodosApi(exchange, method);
+        } else if (reqPath.contains("/edit.html")) {
+            handleEdit(exchange);
+        } else if (reqPath.contains("/api/todo")) {
+            handleSingleTodoApi(exchange, method);
         } else {
             handleHome(exchange, reqPath);
         }
@@ -89,6 +92,56 @@ class TodoHandler implements HttpHandler {
             return;
         }
         sendMethodNotAllowed(exchange);
+    }
+
+    private void handleSingleTodoApi(HttpExchange exchange, String method) throws IOException {
+        String path = exchange.getRequestURI().getPath();
+        String[] parts = path.split("/");
+
+        if (method.equals("GET")) {
+            int todoId = Integer.parseInt(parts[3]);
+            TodoItem todoItem = todoList.getItemById(todoId);
+
+            if (todoItem != null) {
+                String jsonResponse = gson.toJson(todoItem);
+
+                try (OutputStream os = exchange.getResponseBody();) {
+                    exchange.getResponseHeaders().set("Content-Type", "application/json");
+                    exchange.sendResponseHeaders(200, jsonResponse.length());
+                    os.write(jsonResponse.getBytes());
+                }
+            } else {
+                sendNotFound(exchange);
+            }
+        }
+    }
+
+    private void handleEdit(HttpExchange exchange) throws IOException {
+        String filePath = "src/main/resources/static/";
+        String path = exchange.getRequestURI().getPath();
+        String[] parts = path.split("/");
+
+        if (parts[2].contains("css") || parts[2].contains("js")) {
+            filePath = filePath + parts[2];
+        } else {
+            filePath = filePath + parts[1];
+        }
+
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            String mimeType = Files.probeContentType(file.toPath());
+            byte[] content = Files.readAllBytes(file.toPath());
+
+            exchange.getResponseHeaders().set("Content-Type", mimeType);
+            exchange.sendResponseHeaders(200, content.length);
+            OutputStream os = exchange.getResponseBody();
+            os.write(content);
+            os.close();
+        } else {
+            sendNotFound(exchange);
+        }
+
     }
 
     private void sendNotFound(HttpExchange exchange) throws IOException {

@@ -9,7 +9,7 @@ fetch('/api/todos')
       tr.innerHTML = `
         <td><button class="delete-btn">❌</button></td>
         <td>${todo.id}</td>
-        <td><span class="description">${todo.description}</span></td>
+        <td><span class="description"><a class="app-link" href="edit.html/${todo.id}">${todo.description}</a></span></td>
         <td><input type="checkbox" ${todo.isDone ? 'checked' : ''}></td>
       `;
       todoTable.appendChild(tr);

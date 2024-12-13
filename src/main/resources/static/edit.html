@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a new todo</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="create-container">
+    <h1 class="edit-title">Edit todo</h1>
+    <form id="todo-form" method="post">
+        <div class="form-group">
+            <div>
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" required>
+            </div>
+            <div>
+                <label for="isDone">Is done :</label>
+                <input type="checkbox" id="isDone" name="isDone">
+            </div>
+        </div>
+        <button type="submit" class="add-btn">Edit todo</button>
+        <button type="button" class="back-btn">
+            <a href="../index.html">Back to todos</a>
+        </button>
+    </form>
+</div>
+<script src="edit.js"></script>
+</body>
+</html>

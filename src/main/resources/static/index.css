@@ -54,6 +54,7 @@ h1 {
 
 .delete-btn:hover {
     transform: scale(1.2);
+    background-color:none;
 }
 
 .description {
@@ -103,12 +104,15 @@ form {
 
 .form-group {
     display: flex;
+    flex-direction:column;
     align-items: center;
+    gap:1rem;
     justify-content: space-between;
     width: 100%;
+    wrap:wrap
 }
 
-label {
+abel {
     font-size: 16px;
     font-weight: bold;
     color: #555;
@@ -134,10 +138,6 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-}
-
-button:hover {
-    background-color: #0056b3;
 }
 
 button.back-btn {
