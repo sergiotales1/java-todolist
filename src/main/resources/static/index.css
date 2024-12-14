@@ -165,7 +165,7 @@ a.app-link {
   text-decoration: none;
 }
 
-a.app-link:visited {
+a.app-link:visited, a.app-link:link {
   text-decoration: none;
   color: black;
 }
