@@ -114,6 +114,51 @@ class TodoHandler implements HttpHandler {
                 sendNotFound(exchange);
             }
         }
+        if (method.equals("PATCH")) {
+            // read data from client
+            InputStream requestBody = exchange.getRequestBody();
+            Reader jsonReader = new InputStreamReader(requestBody);
+            JsonObject jsonObject = JsonParser.parseReader(jsonReader).getAsJsonObject();
+
+            // extract description and create todo
+            String description = jsonObject.get("description").getAsString();
+            boolean isDone = jsonObject.get("isDone").getAsBoolean();
+            int id = jsonObject.get("parsedId").getAsInt();
+
+            TodoItem todoItem = todoList.getItemById(id);
+            todoItem.setDescription(description);
+            todoItem.setDone(isDone);
+
+            // structure the response to client
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("id", id);
+            String jsonResponse = gson.toJson(responseJson);
+
+            // send response
+            exchange.sendResponseHeaders(201, jsonResponse.length());
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(jsonResponse.getBytes());
+            }
+            return;
+        }
+        if (method.equals("DELETE")) {
+            InputStream requestBody = exchange.getRequestBody();
+            Reader jsonReader = new InputStreamReader(requestBody);
+            JsonObject jsonObject = JsonParser.parseReader(jsonReader).getAsJsonObject();
+
+            int id = jsonObject.get("id").getAsInt();
+            todoList.removeItem(id);
+
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("id", id);
+            String jsonResponse = gson.toJson(responseJson);
+
+            exchange.sendResponseHeaders(201, jsonResponse.length());
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(jsonResponse.getBytes());
+            }
+            return;
+        }
     }
 
     private void handleEdit(HttpExchange exchange) throws IOException {
