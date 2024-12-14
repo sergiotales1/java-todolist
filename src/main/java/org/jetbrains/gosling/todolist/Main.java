@@ -6,6 +6,8 @@ import java.net.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        DatabaseHelper.initializeDatabase();
+
         TodoList todoList = new TodoList();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);

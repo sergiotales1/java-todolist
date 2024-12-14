@@ -5,10 +5,10 @@ public class TodoItem {
     private boolean isDone;
     private String description;
 
-    public TodoItem(int id, String description, boolean isCompleted) {
+    public TodoItem(int id, String description, boolean isDone) {
         this.id = id;
         this.description = description;
-        this.isDone = isCompleted;
+        this.isDone = isDone;
     }
 
     public void toggleComplete(){

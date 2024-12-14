@@ -125,9 +125,7 @@ class TodoHandler implements HttpHandler {
             boolean isDone = jsonObject.get("isDone").getAsBoolean();
             int id = jsonObject.get("parsedId").getAsInt();
 
-            TodoItem todoItem = todoList.getItemById(id);
-            todoItem.setDescription(description);
-            todoItem.setDone(isDone);
+            todoList.editTodo(id, description, isDone);
 
             // structure the response to client
             JsonObject responseJson = new JsonObject();
